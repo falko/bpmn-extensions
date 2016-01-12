@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.omg.org/spec/BPMN/non-normative/extensions/CMMN+DMN/1.0"
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL">
+
+  <import namespace="http://www.omg.org/spec/BPMN/20100524/MODEL" />
+
+  <annotation>
+    <documentation>
+      This XML Schema defines and documents BPMN 2.0 extension elements and
+      attributes to invoke CMMN cases and DMN decisions from BPMN processes. 
+    </documentation>
+  </annotation>
+
+  <attribute name="decisionRef" type="QName">
+    <annotation>
+      <documentation>
+        Attribute on bpmn:businessRuleTask
+        decisionRef refers a "decision" element which is re-usable and can
+        be imported via some other file.
+        decisionRef is mutually exclusive to decisionRefExpression
+      </documentation>
+    </annotation>
+  </attribute>
+  <element name="decisionRefExpression" type="bpmn:tFormalExpression" minOccurs="0" maxOccurs="1">
+    <annotation>
+      <documentation>
+        Extension element on bpmn:businessRuleTask
+        decisionRefExpression allows the selection of a decision at runtime via
+        an expression rather then at design time with decisionRef.
+        decisionRefExpression is mutually exclusive to decisionRef.
+      </documentation>
+    </annotation>
+  </element>
+
+  <attribute name="caseRef" type="QName">
+    <annotation>
+      <documentation>
+        Attribute on bpmn:callActivity
+        caseRef refers a "case" element which is re-usable and can 
+        be imported via some other file.
+        caseRef is mutually exclusive to caseRefExpression, processRefExpression
+        and bpmn:calledElement.
+      </documentation>
+    </annotation>
+  </attribute>
+  <element name="caseRefExpression" type="bpmn:tFormalExpression" minOccurs="0" maxOccurs="1">
+    <annotation>
+      <documentation>
+        Extension element on bpmn:callActivity
+        caseRefExpression allows the selection of a case at runtime via an
+        expression rather than specifying caseRef at design-time.
+        caseRefExpression is mutually exclusive to caseRef, processRefExpression
+        and bpmn:calledElement.
+      </documentation>
+    </annotation>
+  </element>
+
+  <element name="processRefExpression" type="bpmn:tFormalExpression" minOccurs="0" maxOccurs="1">
+    <annotation>
+      <documentation>
+        Extension element on bpmn:callActivity
+        processRefExpression allows the selection of a process at runtime via an
+        expression rather than at design time with bpmn:calledElement.
+        processRefExpression is mutually exclusive to caseRef, caseRefExpression
+        and bpmn:calledElement.
+      </documentation>
+    </annotation>
+  </element>
+
+</schema>
