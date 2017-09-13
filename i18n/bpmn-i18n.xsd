@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xml="http://www.w3.org/XML/1998/namespace"
+  targetNamespace="http://www.omg.org/spec/BPMN/non-normative/extensions/i18n/1.0"
+  xmlns:i18n="http://www.omg.org/spec/BPMN/non-normative/extensions/i18n/1.0"
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC">
+
+  <import namespace="http://www.omg.org/spec/BPMN/20100524/MODEL" />
+
+  <annotation>
+    <documentation>
+      This XML schema defines and documents BPMN 2.0 extension elements
+      to interchange localized names and documentations.
+      
+      This schema is based on the XML Schema documentation element.
+    </documentation>
+  </annotation>
+
+  <element name="name" ref="xsd:documentation" minOccurs="0" maxOccurs="unbounded">
+    <annotation>
+      <documentation>
+        Extension element on bpmn:baseElement that have a name attribute
+
+        i18n:name allows to interchange localized names of a BPMN element.
+
+        Example:
+        <startEvent id="StartEvent_1" name="Start Event">
+          <extensionElements>
+            <i18n:name xml:lang="de">Startereignis</i18n:name>
+          </extensionElements>
+        </startEvent>
+      </documentation>
+    </annotation>
+  </element>
+
+  <element name="documentation" ref="xsd:documentation" minOccurs="0" maxOccurs="unbounded">
+    <annotation>
+      <documentation>
+        Extension element on bpmn:baseElement
+
+        i18n:documentation allows to interchange localized documentations of a BPMN element.
+
+        Example:
+        <startEvent id="StartEvent_1">
+          <extensionElements>
+            <i18n:documentation xml:lang="de">Ein Startereignis.</i18n:documentation>
+          </extensionElements>
+          <documentation>A start event.</documentation>
+        </startEvent>
+      </documentation>
+    </annotation>
+  </element>
+
+</schema>
