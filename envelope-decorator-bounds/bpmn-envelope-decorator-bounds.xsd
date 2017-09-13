@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.omg.org/spec/BPMN/non-normative/extensions/envelope-decorator-bounds/1.0"
+  xmlns:deco="http://www.omg.org/spec/BPMN/non-normative/extensions/envelope-decorator-bounds/1.0"
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC">
+
+  <import namespace="http://www.omg.org/spec/BPMN/20100524/MODEL" />
+
+  <annotation>
+    <documentation>
+      This XML schema defines and documents BPMN 2.0 extension elements and
+      attributes to overcome limitations of BPMN Diagram Interchange.
+    </documentation>
+  </annotation>
+
+  <element name="envelopeDecoratorBounds" type="dc:Bounds" minOccurs="0" maxOccurs="1">
+    <annotation>
+      <documentation>
+        Extension element on bpmndi:BPMNEdge that reference a bpmn:MessageFlow
+
+        envelopeDecoratorBounds allows to interchange the position and dimensions
+        of the envelope decorator on a BPMN Message Flow.
+
+        BPMN 2.1, page 411 (PDF 441) says:
+        "Note that for Message Flow with an envelope decorator, the envelope
+        decorator should be at the midpoint of the message flow. BPMN DI does
+        not provide an interchange of the bounds of the envelope decorator."
+        
+        Example:
+            <bpmndi:BPMNEdge bpmnElement="_09e7cb23-4a1b-4165-b93a-cf635c223ee5" messageVisibleKind="initiating" id="E1373638081031__09e7cb23-4a1b-4165-b93a-cf635c223ee5">
+                <extensionElements>
+                    <deco:evelopeDecoratorBounds height="12" width="17" x="209" y="336.0"/>
+                </extensionElements>
+                <di:waypoint x="305.0" y="188.0"/>
+                <di:waypoint x="305.0" y="342.0"/>
+                <di:waypoint x="130.0" y="342.0"/>
+                <di:waypoint x="131.0" y="651.0"/>
+                <bpmndi:BPMNLabel labelStyle="LS1373638080849">
+                    <dc:Bounds height="12.804751171875008" width="94.93333333333335" x="167.10533963254568" y="359.56612835107035"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+      </documentation>
+    </annotation>
+  </element>
+
+</schema>
