@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.omg.org/spec/BPMN/non-normative/extensions/CMMN/1.0"
+  xmlns:cmmn="http://www.omg.org/spec/BPMN/non-normative/extensions/CMMN/1.0"
+  xmlns:exp="http://www.omg.org/spec/BPMN/non-normative/extensions/process-ref-expression/1.0"
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL">
+
+  <import namespace="http://www.omg.org/spec/BPMN/20100524/MODEL" />
+
+  <annotation>
+    <documentation>
+      This XML schema defines and documents BPMN 2.0 extension elements and
+      attributes to invoke CMMN cases from BPMN processes.
+      This schema has been derived from the CMMN 1.1 Case Task.
+      Call Acitivites using this extension to reference a case, should be
+      depicted with a "Folder" Icon symbol in the upper left corner
+      similar to a CMMN Case Task. (see Case Task.png)
+</documentation>
+  </annotation>
+
+  <attribute name="caseRef" type="QName">
+    <annotation>
+      <documentation>
+        Attribute on bpmn:callActivity
+        caseRef refers a "case" element which is re-usable and can 
+        be imported via some other file.
+        caseRef is mutually exclusive to caseRefExpression, exp:processRefExpression
+        and bpmn:calledElement.
+        This attribute has been derived from the CMMN 1.1 Case Task.
+        Call Acitivites using this attribute to reference a case, should be
+        depicted with a "Folder" Icon symbol in the upper left corner
+        similar to a CMMN Case Task. (see Case Task.png)
+      </documentation>
+    </annotation>
+  </attribute>
+
+  <element name="caseRefExpression" type="bpmn:tFormalExpression" minOccurs="0" maxOccurs="1">
+    <annotation>
+      <documentation>
+        Extension element on bpmn:callActivity
+        caseRefExpression allows the selection of a case at runtime via an
+        expression rather than specifying caseRef at design-time.
+        caseRefExpression is mutually exclusive to caseRef, exp:processRefExpression
+        and bpmn:calledElement.
+        This element has been derived from the CMMN 1.1 Case Task.
+        Call Acitivites using this element to reference a case, should be
+        depicted with a "Folder" Icon symbol in the upper left corner
+        similar to a CMMN Case Task. (see Case Task.png)
+      </documentation>
+    </annotation>
+  </element>
+
+</schema>

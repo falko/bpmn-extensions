@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.omg.org/spec/BPMN/non-normative/extensions/DMN/1.0"
+  xmlns:dmn="http://www.omg.org/spec/BPMN/non-normative/extensions/DMN/1.0"
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL">
+
+  <import namespace="http://www.omg.org/spec/BPMN/20100524/MODEL" />
+
+  <annotation>
+    <documentation>
+      This XML schema defines and documents BPMN 2.0 extension elements and
+      attributes to invoke DMN decisions from BPMN processes.
+      This schema has been derived from the CMMN 1.1 Decision Task.
+    </documentation>
+  </annotation>
+
+  <attribute name="decisionRef" type="QName">
+    <annotation>
+      <documentation>
+        Attribute on bpmn:businessRuleTask
+        decisionRef refers a "decision" element which is re-usable and can
+        be imported via some other file.
+        decisionRef is mutually exclusive to decisionRefExpression
+        This attribute has been derived from the CMMN 1.1 Decision Task.
+      </documentation>
+    </annotation>
+  </attribute>
+
+  <element name="decisionRefExpression" type="bpmn:tFormalExpression" minOccurs="0" maxOccurs="1">
+    <annotation>
+      <documentation>
+        Extension element on bpmn:businessRuleTask
+        decisionRefExpression allows the selection of a decision at runtime via
+        an expression rather then at design time with decisionRef.
+        decisionRefExpression is mutually exclusive to decisionRef.
+        This element has been derived from the CMMN 1.1 Decision Task.
+      </documentation>
+    </annotation>
+  </element>
+
+</schema>
