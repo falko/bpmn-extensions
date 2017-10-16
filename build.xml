@@ -1,0 +1,15 @@
+<project name="TestAnt" default="all" basedir=".">
+	<description>Script to generate documentation for BPMN extension schema files using Ant.</description>
+
+	<property name="original-loc" value="."/>
+	<property name="xslt-file" value="xs3p.xsl"/>
+	<property name="target-dir" value="."/>
+
+	<target name="all" description="Generates documentation for all *.xsd files.">
+      <xslt basedir="." destdir="${target-dir}"
+       extension=".html" style="${original-loc}/${xslt-file}">
+         <include name="**/*.xsd"/>
+      </xslt>
+	</target>
+
+</project>
