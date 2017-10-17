@@ -8,10 +8,10 @@ link:cmmn[Invoking CMMN Cases]
 
 link:dmn[Invoking DMN Decisions]
 
+link:dynamic-binding[Dynamic Binding of Call Activities]
+
 link:envelope-decorator-bounds[Envelope Decorator Bounds]
 
 link:i18n[Internationalization (I18n)]
-
-link:dynamic-binding[Dynamic Binding of Call Activities]
 
 link:https://github.com/bpmn-miwg/bpmn-in-color[BPMN in Color (external)]
