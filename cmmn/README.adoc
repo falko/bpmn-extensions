@@ -1,9 +1,9 @@
 BPMN 2.0 Extension for Invoking CMMN Cases
 ==========================================
 
-link:cmmn/bpmn-cmmn.xsd[XML Schema]
+link:cmmn/bpmn-cmmn.xsd[XML Schema including full Documentation]
 
-link:https://falko.github.io/bpmn-extensions/cmmn/bpmn-cmmn.html[XML Schema Documentation]
+link:https://falko.github.io/bpmn-extensions/cmmn/bpmn-cmmn.html[HTML Documentation generated from XML Schema]
 
 This XML schema defines and documents BPMN 2.0 extension elements and
 attributes to invoke CMMN cases from BPMN processes.
