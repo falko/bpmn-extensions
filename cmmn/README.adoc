@@ -12,4 +12,4 @@ Call Acitivites using this extension to reference a case, should be
 depicted with a "Folder" Icon symbol in the upper left corner
 similar to a CMMN Case Task. 
 
-image:Case%20Task.png[BPMN Call Activity invoking a CMMN Case]
+image:Case%20Task.png["BPMN Call Activity invoking a CMMN Case", width=134]
