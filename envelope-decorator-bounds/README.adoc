@@ -31,4 +31,4 @@ link:envelope-decorator-bounds/bpmn-envelope-decorator-bounds.bpmn[Example BPMN 
 </bpmndi:BPMNEdge>
 ----
 
-image:envelope-decorator-bounds/bpmn-envelope-decorator-bounds.part.png["Envelope Decorator freely positioned along the Message Flow", link=envelope-decorator-bounds/bpmn-envelope-decorator-bounds.png]
+image:bpmn-envelope-decorator-bounds.part.png["Envelope Decorator freely positioned along the Message Flow", link=bpmn-envelope-decorator-bounds.png]
