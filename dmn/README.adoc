@@ -1,9 +1,9 @@
 BPMN 2.0 Extension for Invoking DMN Decisions
 =============================================
 
-link:dmn/bpmn-dmn.xsd[XML Schema]
+link:dmn/bpmn-dmn.xsd[XML Schema including full Documentation]
 
-link:https://falko.github.io/bpmn-extensions/dmn/bpmn-dmn.html[XML Schema Documentation]
+link:https://falko.github.io/bpmn-extensions/dmn/bpmn-dmn.html[HTML Documentation generated from XML Schema]
 
 This XML schema defines and documents BPMN 2.0 extension elements and
 attributes to invoke DMN decisions from BPMN processes.
