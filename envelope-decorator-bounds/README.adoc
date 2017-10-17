@@ -1,7 +1,7 @@
 BPMN 2.0 Extension for Envelope Decorator Bounds
 ================================================
 
-link:envelope-decorator-bounds/bpmn-envelope-decorator-bounds.xsd[XML Schema including full Documentation]
+link:bpmn-envelope-decorator-bounds.xsd[XML Schema including full Documentation]
 
 link:https://falko.github.io/bpmn-extensions/envelope-decorator-bounds/bpmn-envelope-decorator-bounds.html[HTML Documentation generated from XML Schema]
 
@@ -15,7 +15,7 @@ along the Message Flow and not just in the middle of it.
 
 image:bpmn-envelope-decorator-bounds.part.png["Envelope Decorator freely positioned along the Message Flow", link=bpmn-envelope-decorator-bounds.png]
 
-link:envelope-decorator-bounds/bpmn-envelope-decorator-bounds.bpmn[Example BPMN File]
+link:bpmn-envelope-decorator-bounds.bpmn[Example BPMN File]
 
 [source,xml]
 ----

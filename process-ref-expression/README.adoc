@@ -1,7 +1,7 @@
 BPMN 2.0 Extension for Dynamic Binding of Call Activities
 =========================================================
 
-link:process-ref-expression/bpmn-process-ref-expression.xsd[XML Schema including full Documentation]
+link:bpmn-process-ref-expression.xsd[XML Schema including full Documentation]
 
 link:https://falko.github.io/bpmn-extensions/process-ref-expression/bpmn-process-ref-expression.html[HTML Documentation generated from XML Schema]
 
