@@ -24,6 +24,8 @@
 
         envelopeDecoratorBounds allows to interchange the position and dimensions
         of the envelope decorator on a BPMN Message Flow.
+        With this extension the Envelope Decorator can be freely positioned
+        along the Message Flow and not just in the middle of it.
 
         BPMN 2.1, page 411 (PDF 441) says:
         "Note that for Message Flow with an envelope decorator, the envelope
@@ -43,6 +45,8 @@
                     <dc:Bounds height="12.804751171875008" width="94.93333333333335" x="167.10533963254568" y="359.56612835107035"/>
                 </bpmndi:BPMNLabel>
             </bpmndi:BPMNEdge>
+        
+        See also bpmn-envelope-decorator-bounds.png
       </documentation>
     </annotation>
   </element>
