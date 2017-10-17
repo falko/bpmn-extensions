@@ -1,0 +1,17 @@
+BPMN 2.0 Extensions
+===================
+
+The BPMN 2.0 Standard defines a mechanism to extend the process modeling language with new elements and attributes.
+This is a collection of extensions proposed by members of the BPMN Model Interchange Working Group.
+
+link:cmmn[Invoking CMMN Cases]
+
+link:dmn[Invoking DMN Decisions]
+
+link:envelope-decorator-bounds[Envelope Decorator Bounds]
+
+link:i18n[Internationalization (I18n)]
+
+link:process-ref-expression[Dynamic Binding of Call Activities]
+
+link:https://github.com/bpmn-miwg/bpmn-in-color[BPMN in Color (external)]
