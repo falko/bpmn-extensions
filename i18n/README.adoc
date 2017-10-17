@@ -1,0 +1,9 @@
+BPMN 2.0 Extension for Internationalization (I18n)
+==================================================
+
+link:i18n/bpmn-i18n.xsd[XML Schema including full Documentation]
+
+link:https://falko.github.io/bpmn-extensions/i18n/bpmn-i18n.html[HTML Documentation generated from XML Schema]
+
+This XML schema defines and documents BPMN 2.0 extension elements
+to interchange localized names and documentations.
