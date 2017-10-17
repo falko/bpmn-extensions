@@ -1,0 +1,15 @@
+BPMN 2.0 Extension for Invoking CMMN Cases
+==========================================
+
+link:cmmn/bpmn-cmmn.xsd[XML Schema]
+
+link:https://falko.github.io/bpmn-extensions/cmmn/bpmn-cmmn.html[XML Schema Documentation]
+
+This XML schema defines and documents BPMN 2.0 extension elements and
+attributes to invoke CMMN cases from BPMN processes.
+This schema has been derived from the CMMN 1.1 Case Task.
+Call Acitivites using this extension to reference a case, should be
+depicted with a "Folder" Icon symbol in the upper left corner
+similar to a CMMN Case Task. 
+
+image:cmmn/Case%20Task.png[BPMN Call Activity invoking a CMMN Case]
