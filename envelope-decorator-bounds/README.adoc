@@ -3,7 +3,7 @@ BPMN 2.0 Extension for Envelope Decorator Bounds
 
 link:envelope-decorator-bounds/bpmn-envelope-decorator-bounds.xsd[XML Schema including full Documentation]
 
-link:https://falko.github.io/bpmn-extensions/envelope-decorator-bounds/bpmn-envelope-decorator-bounds.html[HTML Documentation generated out of XML Schema]
+link:https://falko.github.io/bpmn-extensions/envelope-decorator-bounds/bpmn-envelope-decorator-bounds.html[HTML Documentation generated from XML Schema]
 
 This XML schema defines and documents BPMN 2.0 extension elements and
 attributes to overcome limitations of BPMN Diagram Interchange.
