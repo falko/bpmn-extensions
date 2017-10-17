@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema
   xmlns="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="http://www.omg.org/spec/BPMN/non-normative/extensions/process-ref-expression/1.0"
-  xmlns:procref="http://www.omg.org/spec/BPMN/non-normative/extensions/process-ref-expression/1.0"
+  targetNamespace="http://www.omg.org/spec/BPMN/non-normative/extensions/dynamic-binding/1.0"
+  xmlns:dynamic="http://www.omg.org/spec/BPMN/non-normative/extensions/dynamic-binding/1.0"
   xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
   <import namespace="http://www.omg.org/spec/BPMN/20100524/MODEL" />

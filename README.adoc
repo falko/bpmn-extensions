@@ -12,6 +12,6 @@ link:envelope-decorator-bounds[Envelope Decorator Bounds]
 
 link:i18n[Internationalization (I18n)]
 
-link:process-ref-expression[Dynamic Binding of Call Activities]
+link:dynamic-binding[Dynamic Binding of Call Activities]
 
 link:https://github.com/bpmn-miwg/bpmn-in-color[BPMN in Color (external)]

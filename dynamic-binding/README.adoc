@@ -1,9 +1,9 @@
 BPMN 2.0 Extension for Dynamic Binding of Call Activities
 =========================================================
 
-link:bpmn-process-ref-expression.xsd[XML Schema including full Documentation]
+link:bpmn-dynamic-binding.xsd[XML Schema including full Documentation]
 
-link:https://falko.github.io/bpmn-extensions/process-ref-expression/bpmn-process-ref-expression.html[HTML Documentation generated from XML Schema]
+link:https://falko.github.io/bpmn-extensions/dynamic-binding/bpmn-dynamic-binding.html[HTML Documentation generated from XML Schema]
 
 This XML schema defines and documents BPMN 2.0 extension elements and
 attributes to dynamically invoke re-usable sub-processes from BPMN processes.

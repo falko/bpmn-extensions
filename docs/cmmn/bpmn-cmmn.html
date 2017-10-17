@@ -786,7 +786,7 @@ if (gc != null) {
       Call Acitivites using this extension to reference a case, should be
       depicted with a "Folder" Icon symbol in the upper left corner
       similar to a CMMN Case Task. (see Case Task.png)
-</td>
+    </td>
 </tr>
 </table>
 <h3>Declared Namespaces</h3>
@@ -817,9 +817,9 @@ if (gc != null) {
 </tr>
 <tr>
 <td>
-<a name="ns_exp">exp</a>
+<a name="ns_dynamic">dynamic</a>
 </td>
-<td>http://www.omg.org/spec/BPMN/non-normative/extensions/process-ref-expression/1.0</td>
+<td>http://www.omg.org/spec/BPMN/non-normative/extensions/dynamic-binding/1.0</td>
 </tr>
 <tr>
 <td>
@@ -868,7 +868,7 @@ setState('schema_scbox', false);
         Attribute on bpmn:callActivity
         caseRef refers a "case" element which is re-usable and can 
         be imported via some other file.
-        caseRef is mutually exclusive to caseRefExpression, exp:processRefExpression
+        caseRef is mutually exclusive to caseRefExpression, dynamic:processRefExpression
         and bpmn:calledElement.
         This attribute has been derived from the CMMN 1.1 Case Task.
         Call Acitivites using this attribute to reference a case, should be
@@ -942,7 +942,7 @@ setState('attribute_caseRef_scbox', false);
         Extension element on bpmn:callActivity
         caseRefExpression allows the selection of a case at runtime via an
         expression rather than specifying caseRef at design-time.
-        caseRefExpression is mutually exclusive to caseRef, exp:processRefExpression
+        caseRefExpression is mutually exclusive to caseRef, dynamic:processRefExpression
         and bpmn:calledElement.
         This element has been derived from the CMMN 1.1 Case Task.
         Call Acitivites using this element to reference a case, should be
