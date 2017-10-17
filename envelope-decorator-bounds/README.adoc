@@ -13,6 +13,8 @@ of the envelope decorator on a BPMN Message Flow.
 With this extension the Envelope Decorator can be freely positioned
 along the Message Flow and not just in the middle of it.
 
+image:bpmn-envelope-decorator-bounds.part.png["Envelope Decorator freely positioned along the Message Flow", link=bpmn-envelope-decorator-bounds.png]
+
 link:envelope-decorator-bounds/bpmn-envelope-decorator-bounds.bpmn[Example BPMN File]
 
 [source,xml]
@@ -30,5 +32,3 @@ link:envelope-decorator-bounds/bpmn-envelope-decorator-bounds.bpmn[Example BPMN 
     </bpmndi:BPMNLabel>
 </bpmndi:BPMNEdge>
 ----
-
-image:bpmn-envelope-decorator-bounds.part.png["Envelope Decorator freely positioned along the Message Flow", link=bpmn-envelope-decorator-bounds.png]
