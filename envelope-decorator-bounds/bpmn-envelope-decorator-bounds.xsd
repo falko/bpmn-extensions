@@ -8,7 +8,9 @@
   xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
   xmlns:dc="http://www.omg.org/spec/DD/20100524/DC">
 
-  <import namespace="http://www.omg.org/spec/BPMN/20100524/MODEL" />
+  <import namespace="http://www.omg.org/spec/BPMN/20100524/MODEL" schemaLocation="../bpmn/BPMN20.xsd" />
+  <import namespace="http://www.omg.org/spec/DD/20100524/DC" schemaLocation="../bpmn/DC.xsd" />
+  <import namespace="http://www.omg.org/spec/DD/20100524/DI" schemaLocation="../bpmn/DI.xsd" />
 
   <annotation>
     <documentation>
@@ -17,13 +19,13 @@
     </documentation>
   </annotation>
 
-  <element name="envelopeDecoratorBounds" type="dc:Bounds" minOccurs="0" maxOccurs="1">
+  <element name="BPMNEnvelopeDecorator" type="deco:BPMNEnvelopeDecorator">
     <annotation>
       <documentation>
         Extension element on bpmndi:BPMNEdge that reference a bpmn:MessageFlow
 
-        envelopeDecoratorBounds allows to interchange the position and dimensions
-        of the envelope decorator on a BPMN Message Flow.
+        BPMNEnvelopeDecorator allows to interchange the position and dimensions
+        of the Envelope Decorator on a BPMN Message Flow.
         With this extension the Envelope Decorator can be freely positioned
         along the Message Flow and not just in the middle of it.
 
@@ -35,7 +37,9 @@
         Example:
             <bpmndi:BPMNEdge bpmnElement="_09e7cb23-4a1b-4165-b93a-cf635c223ee5" messageVisibleKind="initiating" id="E1373638081031__09e7cb23-4a1b-4165-b93a-cf635c223ee5">
                 <extensionElements>
-                    <deco:evelopeDecoratorBounds height="12" width="17" x="209" y="336.0"/>
+                    <deco:BPMNEnvelopeDecorator>
+                        <dc:Bounds height="12" width="17" x="209" y="336.0"/>
+                    </deco:BPMNEnvelopeDecorator>
                 </extensionElements>
                 <di:waypoint x="305.0" y="188.0"/>
                 <di:waypoint x="305.0" y="342.0"/>
@@ -50,5 +54,15 @@
       </documentation>
     </annotation>
   </element>
+
+  <complexType name="BPMNEnvelopeDecorator">
+    <complexContent>
+      <extension base="di:Node">
+        <sequence>
+          <element ref="dc:Bounds" minOccurs="0" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
 
 </schema>
