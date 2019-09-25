@@ -1,3 +1,6 @@
+*Note: This extension has been adopted by the BPMN MIWG and moved to a new official location:
+https://github.com/bpmn-miwg/bpmn-i18n*
+
 BPMN 2.0 Extension for Internationalization (I18n)
 ==================================================
 
