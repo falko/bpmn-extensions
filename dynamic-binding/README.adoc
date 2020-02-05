@@ -10,7 +10,7 @@ attributes to dynamically invoke re-usable sub-processes from BPMN processes.
 This schema has been derived from the CMMN 1.1 Process Task.
 
 Call Acitivites using this extension element or the attribute bpmn:calledElement
-to reference another process, should be depicted with a "Chevron" Icon symbol
+to reference another process, may be depicted with a "Chevron" Icon symbol
 in the upper left corner similar to a CMMN Process Task.
 
 image:Process%20Task.png["BPMN Call Activity invoking a BPMN process", width=134]
