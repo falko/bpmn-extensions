@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1eycjx7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.1.2">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dynamic="http://www.omg.org/spec/BPMN/non-normative/extensions/dynamic-binding/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1eycjx7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.1.2" expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" typeLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL ../bpmn/BPMN20.xsd http://www.omg.org/spec/BPMN/non-normative/extensions/dynamic-binding/1.0 bpmn-dynamic-binding.xsd">
   <process id="Process_1" isExecutable="true">
-    <callActivity id="CallActivity_1" name="Sub-Process" calledElement="MySubProcess">
-        <processRefExpression xsi:type="tFormalExpression"></processRefExpression>
+    <callActivity id="CallActivity_1" name="Sub-Process">
+      <extensionElements>
+        <dynamic:processRefExpression xsi:type="tFormalExpression">"sub-process-tenant-" + tenantId</dynamic:processRefExpression>
+      </extensionElements>
     </callActivity>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
