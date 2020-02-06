@@ -15,10 +15,11 @@
     </documentation>
   </annotation>
 
-  <element name="processRefExpression" type="bpmn:tFormalExpression" minOccurs="0" maxOccurs="1">
+  <element name="processRefExpression" type="bpmn:tFormalExpression">
     <annotation>
       <documentation>
         Extension element on bpmn:callActivity
+        minOccurs="0" maxOccurs="1"
         processRefExpression allows the selection of a process at runtime via an
         expression rather than at design time with bpmn:calledElement.
         processRefExpression is mutually exclusive to caseRef, caseRefExpression
