@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bpmn:definitions name="Incident Management" id="_98a0678d9e194de9b3d9284886c3"
+    typeLanguage="https://www.omg.org/spec/SDMN/"
+    expressionLanguage="https://www.omg.org/spec/DMN/FEEL/"
+    targetNamespace="https://example.org/model/98a0678d9e194de9b3d9284886c3"
+    xmlns:tns="https://example.org/model/98a0678d9e194de9b3d9284886c3"
+    xmlns="https://example.org/model/98a0678d9e194de9b3d9284886c3"
+    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+    xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+    xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+    xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:java="http://jcp.org/en/jsr/detail?id=270"
+    >
+    <!--
+        Java SE 6 is used as type language for the model whereas the Java
+        Unified Expression Language serves as language for Expressions.
+    -->
+
+    <bpmn:collaboration id="C1275940773964">
+        <bpmn:participant name="Trouble Ticket System" processRef="WFP-1-1"
+            id="_1-1" />
+    </bpmn:collaboration>
+
+    <bpmn:process isExecutable="true" id="WFP-1-1">
+
+        <bpmn:ioSpecification>
+            <bpmn:dataInput itemSubjectRef="IssueItem" id="IssueDataInputOfProcess" />
+            <bpmn:inputSet>
+                <bpmn:dataInputRefs>IssueDataInputOfProcess</bpmn:dataInputRefs>
+            </bpmn:inputSet>
+            <bpmn:outputSet></bpmn:outputSet>
+        </bpmn:ioSpecification>
+
+        <!--
+            This Lane Set partitions the Flow Nodes of the Process according to
+            the Resources that are responsible for them. However, this does not
+            affect the actual assignment of Resources to Activities as meaning
+            of the Lanes is up to the modeler and not specified in BPMN.
+        -->
+        <bpmn:laneSet id="ls_1-1">
+            <bpmn:lane name="1st level support"
+                partitionElementRef="FirstLevelSupportResource" id="_1-9">
+                <bpmn:flowNodeRef>_1-13</bpmn:flowNodeRef>
+                <bpmn:flowNodeRef>_1-26</bpmn:flowNodeRef>
+                <bpmn:flowNodeRef>_1-77</bpmn:flowNodeRef>
+                <bpmn:flowNodeRef>_1-128</bpmn:flowNodeRef>
+                <bpmn:flowNodeRef>_1-150</bpmn:flowNodeRef>
+                <bpmn:flowNodeRef>_1-201</bpmn:flowNodeRef>
+                <bpmn:flowNodeRef>_1-376</bpmn:flowNodeRef>
+            </bpmn:lane>
+            <bpmn:lane name="2nd level support"
+                partitionElementRef="SecondLevelSupportResource" id="_1-11">
+                <bpmn:flowNodeRef>_1-252</bpmn:flowNodeRef>
+                <bpmn:flowNodeRef>_1-303</bpmn:flowNodeRef>
+                <bpmn:flowNodeRef>_1-325</bpmn:flowNodeRef>
+            </bpmn:lane>
+        </bpmn:laneSet>
+
+        <bpmn:startEvent name="Issue received" id="_1-13">
+            <bpmn:dataOutput itemSubjectRef="IssueItem"
+                id="IssueDataOutputOfStartEvent" />
+            <bpmn:dataOutputAssociation>
+                <bpmn:sourceRef>IssueDataOutputOfStartEvent</bpmn:sourceRef>
+                <bpmn:targetRef>IssueDataInputOfProcess</bpmn:targetRef>
+            </bpmn:dataOutputAssociation>
+            <bpmn:messageEventDefinition messageRef="IssueMessage" />
+        </bpmn:startEvent>
+
+        <bpmn:sequenceFlow sourceRef="_1-13" targetRef="_1-26" id="_1-390" />
+
+        <!--
+            This script task uses the Groovy programming language to create a
+            Data Object and fill it with data of the Item received in the
+            Message that started the Process.
+        -->
+        <bpmn:scriptTask name="Open ticket" scriptFormat="text/x-groovy" id="_1-26">
+            <bpmn:ioSpecification>
+                <bpmn:dataInput itemSubjectRef="IssueItem"
+                    id="IssueDataInputOfScriptTask" />
+                <bpmn:dataOutput itemSubjectRef="TicketItem" id="TicketDataOutputOfScriptTask"/>
+                <bpmn:inputSet>
+                    <bpmn:dataInputRefs>IssueDataInputOfScriptTask</bpmn:dataInputRefs>
+                </bpmn:inputSet>
+                <bpmn:outputSet>
+                    <bpmn:dataOutputRefs>TicketDataOutputOfScriptTask</bpmn:dataOutputRefs>
+                </bpmn:outputSet>
+            </bpmn:ioSpecification>
+            <bpmn:dataInputAssociation>
+                <bpmn:sourceRef>IssueDataInputOfProcess</bpmn:sourceRef>
+                <bpmn:targetRef>IssueDataInputOfScriptTask</bpmn:targetRef>
+            </bpmn:dataInputAssociation>
+            <bpmn:dataOutputAssociation>
+                <bpmn:sourceRef>TicketDataOutputOfScriptTask</bpmn:sourceRef>
+                <bpmn:targetRef>TicketDataObject</bpmn:targetRef>
+            </bpmn:dataOutputAssociation>
+            <bpmn:script><![CDATA[
+                issueReport = getDataInput("IssueDataInputOfScriptTask") 
+
+                ticket = new TroubleTicket()
+                ticket.setDate = new Date()
+                ticket.setState = "Open"
+                ticket.setReporter = issueReport.getAuthor()
+                ticket.setDesctiption = issueReport.getText()
+
+                setDataOutput("TicketDataOutputOfScriptTask", ticket)
+            ]]></bpmn:script>
+        </bpmn:scriptTask>
+
+        <bpmn:dataObject id="TicketDataObject" itemSubjectRef="TicketItem" />
+
+        <bpmn:sequenceFlow sourceRef="_1-26" targetRef="_1-77" id="_1-392" />
+
+        <bpmn:userTask name="edit 1st level ticket" id="_1-77">
+            <bpmn:ioSpecification>
+                <bpmn:dataInput itemSubjectRef="TicketItem" id="TicketDataInputOf_1-77" />
+                <bpmn:dataOutput itemSubjectRef="TicketItem" id="TicketDataOutputOf_1-77" />
+                <bpmn:inputSet>
+                    <bpmn:dataInputRefs>TicketDataInputOf_1-77</bpmn:dataInputRefs>
+                </bpmn:inputSet>
+                <bpmn:outputSet>
+                    <bpmn:dataOutputRefs>TicketDataOutputOf_1-77</bpmn:dataOutputRefs>
+                </bpmn:outputSet>
+            </bpmn:ioSpecification>
+            <bpmn:dataInputAssociation>
+                <bpmn:sourceRef>TicketDataObject</bpmn:sourceRef>
+                <bpmn:targetRef>TicketDataInputOf_1-77</bpmn:targetRef>
+            </bpmn:dataInputAssociation>
+            <bpmn:dataOutputAssociation>
+                <bpmn:sourceRef>TicketDataOutputOf_1-77</bpmn:sourceRef>
+                <bpmn:targetRef>TicketDataObject</bpmn:targetRef>
+            </bpmn:dataOutputAssociation>
+            <bpmn:potentialOwner>
+                <bpmn:resourceRef>FirstLevelSupportResource</bpmn:resourceRef>
+            </bpmn:potentialOwner>
+        </bpmn:userTask>
+
+        <bpmn:sequenceFlow sourceRef="_1-77" targetRef="_1-128" id="_1-394" />
+
+        <bpmn:exclusiveGateway name="Result?" gatewayDirection="Diverging"
+            id="_1-128" />
+
+        <bpmn:sequenceFlow sourceRef="_1-128" targetRef="_1-252"
+            name="2nd level issue" id="_1-402">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
+                ${getDataObject("TicketDataObject").status == "Open"}
+            </bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow sourceRef="_1-128" targetRef="_1-150"
+            name="Issue resolved" id="_1-396">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
+                ${getDataObject("TicketDataObject").status == "Resolved"}
+            </bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
+
+        <bpmn:userTask name="edit 2nd level ticket" id="_1-252">
+            <bpmn:ioSpecification>
+                <bpmn:dataInput itemSubjectRef="TicketItem" id="TicketDataInputOf_1-252" />
+                <bpmn:dataOutput itemSubjectRef="TicketItem" id="TicketDataOutputOf_1-252" />
+                <bpmn:inputSet>
+                    <bpmn:dataInputRefs>TicketDataInputOf_1-252</bpmn:dataInputRefs>
+                </bpmn:inputSet>
+                <bpmn:outputSet>
+                    <bpmn:dataOutputRefs>TicketDataOutputOf_1-252</bpmn:dataOutputRefs>
+                </bpmn:outputSet>
+            </bpmn:ioSpecification>
+            <bpmn:dataInputAssociation>
+                <bpmn:sourceRef>TicketDataObject</bpmn:sourceRef>
+                <bpmn:targetRef>TicketDataInputOf_1-252</bpmn:targetRef>
+            </bpmn:dataInputAssociation>
+            <bpmn:dataOutputAssociation>
+                <bpmn:sourceRef>TicketDataOutputOf_1-252</bpmn:sourceRef>
+                <bpmn:targetRef>TicketDataObject</bpmn:targetRef>
+            </bpmn:dataOutputAssociation>
+            <bpmn:potentialOwner>
+                <bpmn:resourceRef>SecondLevelSupportResource</bpmn:resourceRef>
+            </bpmn:potentialOwner>
+        </bpmn:userTask>
+
+        <bpmn:sequenceFlow sourceRef="_1-252" targetRef="_1-303" id="_1-404" />
+
+        <bpmn:exclusiveGateway name="Result?" gatewayDirection="Diverging"
+            id="_1-303" />
+
+        <bpmn:sequenceFlow sourceRef="_1-303" targetRef="_1-325"
+            name="Fix in Next release" id="_1-410">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
+                ${getDataObject("TicketDataObject").status == "Deferred"}
+            </bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
+
+        <bpmn:sequenceFlow sourceRef="_1-303" targetRef="_1-150"
+            name="Issue resolved" id="_1-406">
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
+                ${getDataObject("TicketDataObject").status == "Resolved"}
+            </bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
+
+        <bpmn:serviceTask name="Insert issue into product backlog"
+            operationRef="addTicketOperation" id="_1-325">
+            <bpmn:ioSpecification>
+                <bpmn:dataInput itemSubjectRef="TicketItem" id="TicketDataInputOf_1-325" />
+                <bpmn:inputSet>
+                    <bpmn:dataInputRefs>TicketDataInputOf_1-325</bpmn:dataInputRefs>
+                </bpmn:inputSet>
+                <bpmn:outputSet />
+            </bpmn:ioSpecification>
+            <bpmn:dataInputAssociation>
+                <bpmn:sourceRef>TicketDataObject</bpmn:sourceRef>
+                <bpmn:targetRef>TicketDataInputOf_1-325</bpmn:targetRef>
+            </bpmn:dataInputAssociation>
+        </bpmn:serviceTask>
+
+        <bpmn:sequenceFlow sourceRef="_1-325" targetRef="_1-150" id="_1-408" />
+
+        <bpmn:sendTask name="Send mail to account manager" messageRef="AnswerMessage"
+            operationRef="sendMailToIssueReporterOperation" id="_1-150">
+            <bpmn:ioSpecification>
+                <bpmn:dataInput itemSubjectRef="AnswerItem" id="AnswerDataInputOfSendTask" />
+                <bpmn:inputSet>
+                    <bpmn:dataInputRefs>AnswerDataInputOfSendTask</bpmn:dataInputRefs>
+                </bpmn:inputSet>
+                <bpmn:outputSet />
+            </bpmn:ioSpecification>
+            <bpmn:dataInputAssociation>
+                <bpmn:sourceRef>TicketDataObject</bpmn:sourceRef>
+                <bpmn:targetRef>AnswerDataInputOfSendTask</bpmn:targetRef>
+                <bpmn:assignment>
+                    <bpmn:from>${TicketDataObject.reporter}</bpmn:from>
+                    <bpmn:to>${AnswerDataInputOfSendTask.recipient}</bpmn:to>
+                </bpmn:assignment>
+                <bpmn:assignment>
+                    <bpmn:from>
+                        A ticket has been created for your issue, which is now in
+                        status ${TicketDataObject.status}.
+                    </bpmn:from>
+                    <bpmn:to>${AnswerDataInputOfSendTask.body}</bpmn:to>
+                </bpmn:assignment>
+            </bpmn:dataInputAssociation>
+            <!-- XPath Example found in http://www.osoa.org/jira/browse/BPMN-432 -->
+            <!--
+			<bpmn:dataInputAssociation name="Copy from DataObject to DataInput">
+				<bpmn:sourceRef>CustomerDataObject</bpmn:sourceRef>
+				<bpmn:targetRef>DataInput</bpmn:targetRef>
+				<bpmn:assignment>
+					<bpmn:from>string('Scott')</bpmn:from>
+					<bpmn:to>bpmn:getDataInput('DataInput')/payload/sd:customer/sd:firstName</bpmn:to>
+				</bpmn:assignment>
+				<bpmn:assignment>
+					<bpmn:from>string('Tiger')</bpmn:from>
+					<bpmn:to>bpmn:getDataInput('DataInput')/sd:customer/sd:lastName</bpmn:to>
+				</bpmn:assignment>
+				<bpmn:assignment>
+					<bpmn:from>bpmn:getDataObject('CustomerDataObject')/sd:customer/sd:address</bpmn:from>
+					<bpmn:to>bpmn:getDataInput('DataInput')/payload/sd:customer/sd:address</bpmn:to>
+				</bpmn:assignment>
+			</bpmn:dataInputAssociation>
+			-->
+        </bpmn:sendTask>
+
+        <bpmn:sequenceFlow sourceRef="_1-150" targetRef="_1-201" id="_1-398" />
+
+        <bpmn:scriptTask name="Close ticket" scriptFormat="text/x-groovy"
+            id="_1-201">
+            <bpmn:ioSpecification>
+                <bpmn:dataInput itemSubjectRef="TicketItem" id="TicketDataInputOf_1-398" />
+                <bpmn:inputSet>
+                    <bpmn:dataInputRefs>TicketDataInputOf_1-398</bpmn:dataInputRefs>
+                </bpmn:inputSet>
+                <bpmn:outputSet />
+            </bpmn:ioSpecification>
+            <bpmn:dataInputAssociation>
+                <bpmn:sourceRef>TicketDataObject</bpmn:sourceRef>
+                <bpmn:targetRef>TicketDataInputOf_1-398</bpmn:targetRef>
+            </bpmn:dataInputAssociation>
+            <bpmn:script><![CDATA[
+                ticket = getDataInput("TicketDataInputOf_1-398")
+                ticket.close()
+            ]]></bpmn:script>
+        </bpmn:scriptTask>
+
+        <bpmn:sequenceFlow sourceRef="_1-201" targetRef="_1-376" id="_1-400" />
+
+        <bpmn:endEvent id="_1-376" />
+
+    </bpmn:process>
+
+    <bpmn:resource id="FirstLevelSupportResource" name="1st Level Support" />
+
+    <bpmn:resource id="SecondLevelSupportResource" name="2nd Level Support" />
+
+    <bpmn:interface name="Product Backlog Interface"
+        implementationRef="java:com.camunda.examples.incidentmanagement.ProductBacklog">
+        <bpmn:operation name="addTicketOperation" implementationRef="addTicket"
+            id="addTicketOperation">
+            <bpmn:inMessageRef>AddTicketMessage</bpmn:inMessageRef>
+        </bpmn:operation>
+    </bpmn:interface>
+
+    <bpmn:interface name="Mail Interface"
+        implementationRef="java:com.camunda.examples.incidentmanagement.Mail">
+        <bpmn:operation name="sendMailToIssueReporterOperation" implementationRef="sendMail"
+            id="sendMailToIssueReporterOperation">
+            <bpmn:inMessageRef>AnswerMessage</bpmn:inMessageRef>
+        </bpmn:operation>
+    </bpmn:interface>
+
+    <bpmn:message id="IssueMessage" name="Issue Message" itemRef="IssueItem" />
+
+    <bpmn:message id="AddTicketMessage" name="addTicket Message"
+        itemRef="TicketItem" />
+
+    <bpmn:message id="AnswerMessage" name="Answer Message" itemRef="AnswerItem" />
+
+    <bpmn:itemDefinition id="IssueItem" isCollection="false" itemKind="Information"
+        structureRef="java:com.camunda.examples.incidentmanagement.IssueReport" />
+
+    <bpmn:itemDefinition id="TicketItem" isCollection="false" itemKind="Information"
+        structureRef="java:com.camunda.examples.incidentmanagement.TroubleTicket" />
+
+    <bpmn:itemDefinition id="AnswerItem" isCollection="false" itemKind="Information"
+        structureRef="java:com.camunda.examples.incidentmanagement.Answer" />
+
+    <bpmndi:BPMNDiagram documentation=""
+        id="Trisotech.Visio-_1" name="Process Engine Only" resolution="96.00000267028808">
+        <bpmndi:BPMNPlane bpmnElement="C1275940773964">
+            <bpmndi:BPMNShape bpmnElement="_1-1" isHorizontal="true"
+                id="Trisotech.Visio__1-1">
+                <dc:Bounds height="396.0" width="1103.0" x="1.0" y="177.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1-9" isHorizontal="true"
+                id="Trisotech.Visio__1__1-9">
+                <dc:Bounds height="144.0" width="1073.0" x="31.0" y="177.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1-11" isHorizontal="true"
+                id="Trisotech.Visio__1__1-11">
+                <dc:Bounds height="252.0" width="1073.0" x="31.0" y="321.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1-13"
+                id="Trisotech.Visio__1__1-13">
+                <dc:Bounds height="30.0" width="30.0" x="66.0" y="233.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1-26"
+                id="Trisotech.Visio__1__1-26">
+                <dc:Bounds height="68.0" width="83.0" x="139.0" y="215.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1-77"
+                id="Trisotech.Visio__1__1-77">
+                <dc:Bounds height="68.0" width="83.0" x="266.0" y="215.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1-128"
+                isMarkerVisible="false" id="Trisotech.Visio__1__1-128">
+                <dc:Bounds height="42.0" width="42.0" x="385.0" y="228.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1-150"
+                id="Trisotech.Visio__1__1-150">
+                <dc:Bounds height="68.0" width="83.0" x="767.0" y="225.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1-201"
+                id="Trisotech.Visio__1__1-201">
+                <dc:Bounds height="68.0" width="83.0" x="893.0" y="225.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1-376"
+                id="Trisotech.Visio__1__1-376">
+                <dc:Bounds height="32.0" width="32.0" x="1013.0" y="243.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1-252"
+                id="Trisotech.Visio__1__1-252">
+                <dc:Bounds height="68.0" width="83.0" x="446.0" y="357.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1-303"
+                isMarkerVisible="false" id="Trisotech.Visio__1__1-303">
+                <dc:Bounds height="42.0" width="42.0" x="573.0" y="370.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="_1-325"
+                id="Trisotech.Visio__1__1-325">
+                <dc:Bounds height="68.0" width="83.0" x="641.0" y="429.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge bpmnElement="_1-398"
+                id="Trisotech.Visio__1__1-398">
+                <di:waypoint x="850.0" y="259.0" />
+                <di:waypoint x="868.0" y="259.0" />
+                <di:waypoint x="893.0" y="259.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="_1-402"
+                id="Trisotech.Visio__1__1-402">
+                <di:waypoint x="406.0" y="269.0" />
+                <di:waypoint x="406.0" y="390.0" />
+                <di:waypoint x="446.0" y="391.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="_1-392"
+                id="Trisotech.Visio__1__1-392">
+                <di:waypoint x="222.0" y="249.0" />
+                <di:waypoint x="266.0" y="249.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="_1-390"
+                id="Trisotech.Visio__1__1-390">
+                <di:waypoint x="97.0" y="249.0" />
+                <di:waypoint x="115.0" y="249.0" />
+                <di:waypoint x="139.0" y="249.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="_1-410"
+                id="Trisotech.Visio__1__1-410">
+                <di:waypoint x="594.0" y="411.0" />
+                <di:waypoint x="594.0" y="462.0" />
+                <di:waypoint x="641.0" y="463.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="_1-400"
+                id="Trisotech.Visio__1__1-400">
+                <di:waypoint x="976.0" y="259.0" />
+                <di:waypoint x="994.0" y="259.0" />
+                <di:waypoint x="1013.0" y="259.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="_1-394"
+                id="Trisotech.Visio__1__1-394">
+                <di:waypoint x="349.0" y="249.0" />
+                <di:waypoint x="367.0" y="249.0" />
+                <di:waypoint x="385.0" y="249.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="_1-404"
+                id="Trisotech.Visio__1__1-404">
+                <di:waypoint x="529.0" y="391.0" />
+                <di:waypoint x="547.0" y="391.0" />
+                <di:waypoint x="573.0" y="390.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="_1-406"
+                id="Trisotech.Visio__1__1-406">
+                <di:waypoint x="614.0" y="390.0" />
+                <di:waypoint x="672.0" y="390.0" />
+                <di:waypoint x="672.0" y="258.0" />
+                <di:waypoint x="767.0" y="259.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="_1-396"
+                id="Trisotech.Visio__1__1-396">
+                <di:waypoint x="426.0" y="249.0" />
+                <di:waypoint x="444.0" y="249.0" />
+                <di:waypoint x="444.0" y="247.0" />
+                <di:waypoint x="767.0" y="247.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="_1-408"
+                id="Trisotech.Visio__1__1-408">
+                <di:waypoint x="724.0" y="463.0" />
+                <di:waypoint x="742.0" y="463.0" />
+                <di:waypoint x="742.0" y="270.0" />
+                <di:waypoint x="767.0" y="270.0" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+
+</bpmn:definitions>
