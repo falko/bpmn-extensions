@@ -1,0 +1,7 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+
+    <uri
+        name="http://www.omg.org/spec/BPMN/20100524/MODEL"
+        uri="./bpmn/BPMN20.xsd" />
+        
+</catalog>

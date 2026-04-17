@@ -1,0 +1,22 @@
+{
+    "xml.catalogs": [
+        "catalog.xml"
+    ],
+    "xml.filePathSupport.mappings": [
+        // see: https://github.com/redhat-developer/vscode-xml/blob/main/docs/Features/XMLFilePathSupport.md
+        {
+            "pattern": "**/*.bpmn",
+            "expressions": [
+                {
+                    "xpath": "import/@location",
+                    "filter": [".bpmn", ".dmn", ".sdmn", ".xsd" ,".wsdl"]
+                }
+            ]
+        }
+    ],
+    "xml.references": [
+        // see: https://github.com/redhat-developer/vscode-xml/blob/main/docs/Features/XMLReferencesFeatures.md
+        {
+        }
+    ]
+}
