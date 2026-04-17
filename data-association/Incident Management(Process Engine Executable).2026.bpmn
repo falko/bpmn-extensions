@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <bpmn:definitions name="Incident Management" id="_98a0678d9e194de9b3d9284886c3"
     typeLanguage="https://www.omg.org/spec/SDMN/"
-    expressionLanguage="https://www.omg.org/spec/DMN/FEEL/"
+    expressionLanguage="https://www.omg.org/spec/DMN/B-FEEL/"
     targetNamespace="https://example.org/model/98a0678d9e194de9b3d9284886c3"
     xmlns:tns="https://example.org/model/98a0678d9e194de9b3d9284886c3"
     xmlns="https://example.org/model/98a0678d9e194de9b3d9284886c3"
@@ -13,6 +13,7 @@
     xmlns:java="http://jcp.org/en/jsr/detail?id=270"
     >
     <!--
+        TODO: replace with SDMN
         Java SE 6 is used as type language for the model whereas the Java
         Unified Expression Language serves as language for Expressions.
     -->
@@ -70,11 +71,10 @@
         <bpmn:sequenceFlow sourceRef="_1-13" targetRef="_1-26" id="_1-390" />
 
         <!--
-            This script task uses the Groovy programming language to create a
-            Data Object and fill it with data of the Item received in the
-            Message that started the Process.
+            This script task uses B-FEEL to transform the incoming issue report
+            into a ticket with initial state and metadata.
         -->
-        <bpmn:scriptTask name="Open ticket" scriptFormat="text/x-groovy" id="_1-26">
+        <bpmn:scriptTask name="Open ticket" scriptFormat="application/feel" id="_1-26">
             <bpmn:ioSpecification>
                 <bpmn:dataInput itemSubjectRef="IssueItem"
                     id="IssueDataInputOfScriptTask" />
@@ -95,15 +95,12 @@
                 <bpmn:targetRef>TicketDataObject</bpmn:targetRef>
             </bpmn:dataOutputAssociation>
             <bpmn:script><![CDATA[
-                issueReport = getDataInput("IssueDataInputOfScriptTask") 
-
-                ticket = new TroubleTicket()
-                ticket.setDate = new Date()
-                ticket.setState = "Open"
-                ticket.setReporter = issueReport.getAuthor()
-                ticket.setDesctiption = issueReport.getText()
-
-                setDataOutput("TicketDataOutputOfScriptTask", ticket)
+{
+  date: now(),
+  state: "Open",
+  reporter: IssueDataInputOfScriptTask.author,
+  description: IssueDataInputOfScriptTask.text
+}
             ]]></bpmn:script>
         </bpmn:scriptTask>
 
@@ -143,13 +140,13 @@
         <bpmn:sequenceFlow sourceRef="_1-128" targetRef="_1-252"
             name="2nd level issue" id="_1-402">
             <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
-                ${getDataObject("TicketDataObject").status == "Open"}
+                TicketDataObject.status = "Open"
             </bpmn:conditionExpression>
         </bpmn:sequenceFlow>
         <bpmn:sequenceFlow sourceRef="_1-128" targetRef="_1-150"
             name="Issue resolved" id="_1-396">
             <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
-                ${getDataObject("TicketDataObject").status == "Resolved"}
+                TicketDataObject.status = "Resolved"
             </bpmn:conditionExpression>
         </bpmn:sequenceFlow>
 
@@ -185,14 +182,14 @@
         <bpmn:sequenceFlow sourceRef="_1-303" targetRef="_1-325"
             name="Fix in Next release" id="_1-410">
             <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
-                ${getDataObject("TicketDataObject").status == "Deferred"}
+                TicketDataObject.status = "Deferred"
             </bpmn:conditionExpression>
         </bpmn:sequenceFlow>
 
         <bpmn:sequenceFlow sourceRef="_1-303" targetRef="_1-150"
             name="Issue resolved" id="_1-406">
             <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
-                ${getDataObject("TicketDataObject").status == "Resolved"}
+                TicketDataObject.status = "Resolved"
             </bpmn:conditionExpression>
         </bpmn:sequenceFlow>
 
@@ -226,15 +223,15 @@
                 <bpmn:sourceRef>TicketDataObject</bpmn:sourceRef>
                 <bpmn:targetRef>AnswerDataInputOfSendTask</bpmn:targetRef>
                 <bpmn:assignment>
-                    <bpmn:from>${TicketDataObject.reporter}</bpmn:from>
-                    <bpmn:to>${AnswerDataInputOfSendTask.recipient}</bpmn:to>
+                    <bpmn:from>TicketDataObject.reporter</bpmn:from>
+                    <bpmn:to>AnswerDataInputOfSendTask.recipient</bpmn:to>
                 </bpmn:assignment>
                 <bpmn:assignment>
                     <bpmn:from>
-                        A ticket has been created for your issue, which is now in
-                        status ${TicketDataObject.status}.
+                        "A ticket has been created for your issue, which is now in status "
+                        + TicketDataObject.status + "."
                     </bpmn:from>
-                    <bpmn:to>${AnswerDataInputOfSendTask.body}</bpmn:to>
+                    <bpmn:to>AnswerDataInputOfSendTask.body</bpmn:to>
                 </bpmn:assignment>
             </bpmn:dataInputAssociation>
             <!-- XPath Example found in http://www.osoa.org/jira/browse/BPMN-432 -->
@@ -260,7 +257,7 @@
 
         <bpmn:sequenceFlow sourceRef="_1-150" targetRef="_1-201" id="_1-398" />
 
-        <bpmn:scriptTask name="Close ticket" scriptFormat="text/x-groovy"
+        <bpmn:scriptTask name="Close ticket" scriptFormat="application/b-feel"
             id="_1-201">
             <bpmn:ioSpecification>
                 <bpmn:dataInput itemSubjectRef="TicketItem" id="TicketDataInputOf_1-398" />
@@ -274,8 +271,7 @@
                 <bpmn:targetRef>TicketDataInputOf_1-398</bpmn:targetRef>
             </bpmn:dataInputAssociation>
             <bpmn:script><![CDATA[
-                ticket = getDataInput("TicketDataInputOf_1-398")
-                ticket.close()
+TicketDataInputOf_1-398.state = "Closed"
             ]]></bpmn:script>
         </bpmn:scriptTask>
 
